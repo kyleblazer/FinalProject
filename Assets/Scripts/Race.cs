@@ -68,6 +68,7 @@ public class Race : MonoBehaviour
     private bool r8Ended = false;
     private bool r9Ended = false;
     private bool r10Ended = false;
+    private bool hasBeenShown = false;
 
     // Start is called before the first frame update
     void Start()
@@ -117,24 +118,46 @@ public class Race : MonoBehaviour
 
     public void showLeaderboardScreen()
     {
-        leaderboardNumbers.GetComponent<Text>().text += "Place:\n";
-        closeLeaderboardButton.SetActive(true);
-        leaderboardButton.SetActive(false);
-        leaderboardTextBox.SetActive(true);
-        leaderboardNumbers.SetActive(true);
-        //find player with fastest lap
-        for (int i = 1; i <= numRacers; ++i)
+        if (hasBeenShown == false)
         {
-            leaderboardNumbers.GetComponent<Text>().text += i.ToString() + "\n";
+            leaderboardNumbers.GetComponent<Text>().text += "Place:\n";
+            closeLeaderboardButton.SetActive(true);
+            leaderboardButton.SetActive(false);
+            leaderboardTextBox.SetActive(true);
+            leaderboardNumbers.SetActive(true);
+            leaveRaceButton.SetActive(false);
+            //find player with fastest lap
+            for (int i = 1; i <= numRacers; ++i)
+            {
+                leaderboardNumbers.GetComponent<Text>().text += i.ToString() + "\n";
+            }
+            leaderboardTextBox.GetComponent<Text>().text = leaderboardText;
+            for (int i = 0; i < 10; ++i)
+            {
+                playerArray[i].hideSplitButton();
+                playerArray[i].hideEndButton();
+                playerArray[i].hidePlayerName();
+                playerArray[i].hideSeeStatsButton();
+            }
+            hasBeenShown = true;
         }
-        leaderboardTextBox.GetComponent<Text>().text = leaderboardText;
-        for (int i = 0; i < 10; ++i)
+        else
         {
-            playerArray[i].hideSplitButton();
-            playerArray[i].hideEndButton();
-            playerArray[i].hidePlayerName();
-            playerArray[i].hideSeeStatsButton();
+            for (int i = 0; i < 10; ++i)
+            {
+                playerArray[i].hideSplitButton();
+                playerArray[i].hideEndButton();
+                playerArray[i].hidePlayerName();
+                playerArray[i].hideSeeStatsButton();
+            }
+            endRaceButton.SetActive(false);
+            closeLeaderboardButton.SetActive(true);
+            leaderboardButton.SetActive(false);
+            leaderboardTextBox.SetActive(true);
+            leaderboardNumbers.SetActive(true);
+            leaveRaceButton.SetActive(false);
         }
+
     }
     public void hideLeaderboardScreen()
     {
@@ -142,6 +165,7 @@ public class Race : MonoBehaviour
         leaderboardTextBox.SetActive(false);
         leaderboardNumbers.SetActive(false);
         closeLeaderboardButton.SetActive(false);
+        leaveRaceButton.SetActive(true);
         for (int i = 0; i < 10; ++i)
         {
             playerArray[i].showPlayerName();
