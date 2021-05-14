@@ -691,6 +691,6 @@ public class Race : MonoBehaviour
     }
     public void restartApplication(string SceneName)
     {
-        SceneManager.LoadScene("Start Scene");
+        SceneManager.LoadScene("Final Project Scene");
     }
 }
