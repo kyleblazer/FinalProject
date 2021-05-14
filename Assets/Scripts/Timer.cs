@@ -6,13 +6,9 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    public Text textBox;
-    private float startTime;
-    // Start is called before the first frame update
-    void Start()
-    {
-        startTime = Time.time;
-    }
+    private float startTime = 0f;
+    private float currentTime;
+
     public void startTimer()
     {
         startTime = Time.time;
@@ -21,8 +17,10 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //TimeSpan ts = TimeSpan.FromSeconds(Time.time-startTime);
-        //string result = ts.ToString("mm\\:ss\\.f");
-        //textBox.text = result; /*https://stackoverflow.com/questions/40867158/how-can-i-format-a-float-number-so-that-it-looks-like-real-time */
+        currentTime = Time.time - startTime;
+    }
+    public float getCurrentTime()
+    {
+        return currentTime;
     }
 }
